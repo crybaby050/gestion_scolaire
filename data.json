@@ -1,0 +1,102 @@
+{
+    "filiere": [
+        {
+            "id": 1,
+            "libelle": "Informatique"
+        },
+        {
+            "id": 2,
+            "libelle": "Gestion"
+        },
+        {
+            "id": 3,
+            "libelle": "R\u00e9seaux"
+        }
+    ],
+    "niveau": [
+        {
+            "id": 1,
+            "libelle": "Licence 1"
+        },
+        {
+            "id": 2,
+            "libelle": "Licence 2"
+        },
+        {
+            "id": 3,
+            "libelle": "Licence 3"
+        }
+    ],
+    "classe": [
+        {
+            "id": 1,
+            "libelle": "Informatique L1",
+            "code": "INF-L1",
+            "filiere": "R\u00e9seaux",
+            "niveau": "Licence 3"
+        },
+        {
+            "id": 2,
+            "libelle": "Gestion L2",
+            "code": "GES-L2",
+            "filiere": "R\u00e9seaux",
+            "niveau": "Licence 3"
+        },
+        {
+            "id": 3,
+            "libelle": "R\u00e9seaux L3",
+            "code": "RES-L3",
+            "filiere": "R\u00e9seaux",
+            "niveau": "Licence 3"
+        }
+    ],
+    "etudiant": [
+        {
+            "id": "1",
+            "nom": "seydina",
+            "prenom": "nninin",
+            "email": "seydina.fall@example.com",
+            "telephone": "9939399",
+            "adresse": "kdkwndk",
+            "idClasse": 1
+        },
+        {
+            "id": "2",
+            "nom": "seydina",
+            "prenom": "nninin",
+            "idClasse": 2,
+            "email": "benthiam@gmail.com",
+            "telephone": "765432345",
+            "adresse": "dakar"
+        },
+        {
+            "id": 3,
+            "nom": "Ndoye",
+            "prenom": "Ousmane",
+            "telephone": "770000003",
+            "email": "ousmane.ndoye@example.com",
+            "adresse": "Saint-Louis",
+            "idClasse": 3
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "nom": "BEN THIAM",
+            "mail": "benthiam@gmail.com",
+            "mdp": "123456"
+        },
+        {
+            "id": 2,
+            "nom": "modou fall",
+            "mail": "modoufall@gmail.com",
+            "mdp": "abcd"
+        },
+        {
+            "id": 3,
+            "nom": "fallou diop",
+            "mail": "falloudiop@gmail.com",
+            "mdp": "0000"
+        }
+    ]
+}
