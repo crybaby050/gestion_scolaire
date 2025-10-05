@@ -23,7 +23,6 @@
                                     <?php endforeach?>
                                 </select>
                                 <!-- <input type="text" name="niv"> -->
-                                <!-- <p> $error </p> -->
                             </div>
                             <button type="submit" name="nivfil"><i class="fa-solid fa-filter"></i>filtrer</button>
                             <a href="<?= WEBROOT ?>?page=liste" class="">rafraichir</a>

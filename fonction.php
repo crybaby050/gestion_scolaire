@@ -133,9 +133,9 @@ function getEtudiantByClasse($etudiants, $classe){
     foreach ($etudiants as $e) {
         if($e["idClasse"] == $classe["id"]){
             $etus[] = $e;
-            return $etus;
         }
     }
+    return $etus;
 }
 
 function filteredByClasse($libelle, $etudiants,$classes){

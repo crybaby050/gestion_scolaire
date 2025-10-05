@@ -8,17 +8,18 @@
                     <h3>Modifier</h3>
                     <div>
                         <label for="">Nom</label>
-                        <input type="text" name="nom" value=<?=$lib ?? ""?>>
+                        <input type="text" name="nom" value=<?=$charge['nom'] ?? ""?>>
                         <p><?=$error1?></p>
                     </div>
                     <div>
                         <label for="">Prenom</label>
-                        <input type="text" name="pre" value=<?=$pre ?? ""?>>
+                        <input type="text" name="pre" value=<?=$charge['prenom'] ?? ""?>>
                         <p><?=$error2?></p>
                     </div>
                     <div>
                         <label for="">Mail</label>
-                        <input type="text" name="mail" value=<?=$mail ?? ""?>>
+                        <input type="text" name="mail" value=<?=$charge['email'] ?? ""?>>
+                        <p><?=$error5?></p>
                     </div>
                     <div>
                         <label for="">class</label>
@@ -30,11 +31,12 @@
                     </div>
                     <div>
                         <label for="">Tel</label>
-                        <input type="number" name="tel" id="" value=<?=$tel ?? ""?>>
+                        <input type="number" name="tel" id="" value=<?=$charge['telephone'] ?? ""?>>
+                        <p><?=$error6?></p>
                     </div>
                     <div>
                         <label for="">Adresse</label>
-                        <input type="text" name="ad" value=<?=$ad ?? ""?>>
+                        <input type="text" name="ad" value=<?=$charge['adresse'] ?? ""?>>
                         <p><?=$error4?></p>
                     </div>
                     <button type="submit" name="modSave">Enregistrer</button>

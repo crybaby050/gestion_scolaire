@@ -32,12 +32,8 @@ if (isset($_REQUEST['page'])) {
             $error = '';
             if(isset($_REQUEST['nivfil'])){
                 $val = trim($_REQUEST['niv']);
-                if(empty($val)){
-                    $error = 'Champ obligatoire';
-                }else{
                     $etude = filteredByClasse($val,$etude,$classe);
                     require_once('liste.php');
-                }
             }
             require_once('liste.php');
             break;
@@ -57,6 +53,10 @@ if (isset($_REQUEST['page'])) {
             require_once('detail.php');
         break;
         case 'ajetu' :
+            $classe=findAllClasse();
+            if(isset($_REQUEST['ajouter'])){
+                
+            }
             require_once('ajoutEtudiant.php');
         break;
         case 'modif':
@@ -65,6 +65,10 @@ if (isset($_REQUEST['page'])) {
             $error2="";
             $error3="";
             $error4="";
+            $error5="";
+            $error6="";
+            $id=intval($_REQUEST['id']);
+            $charge=detailById($id);
             if(isset($_REQUEST['modSave'])){
                 $lib = trim($_REQUEST['nom']);
                 $pre = trim($_REQUEST['pre']);
@@ -86,11 +90,11 @@ if (isset($_REQUEST['page'])) {
                     $verif=false;
                 }
                 if(empty($mail)){
-                    $mail = "Aucun";
+                    $error5="champ obligatoire";
                     $verif=true;
                 }
                 if(empty($tel)){
-                    $tel = "Auncun";
+                    $error6="champ obligatoire";
                     $verif=true;
                 }
                 if(empty($ad)){
