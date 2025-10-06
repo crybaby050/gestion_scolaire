@@ -6,7 +6,7 @@
                 <div class="ajEtudiant">
                     <button>
                         <i class="fa-solid fa-plus"></i>
-                        <a href="<?= WEBROOT ?>?page=ajetu">Ajouter etudiant</a>
+                        <a href="<?= WEBROOT ?>?page=ajout">Ajouter etudiant</a>
                     </button>
                 </div>
             </div>

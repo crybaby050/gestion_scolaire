@@ -39,17 +39,20 @@ function findAllUsers():array{
 function compteur($table):int{
     return count($table);
 }
-function NouveauId(array $tableau): int {
+function nouveauId(array $tableau): int {
+    $id=[];
     if (empty($tableau)) {
         return 1;
+    }else{
+        foreach($tableau as $tab){
+            $id[]=$tab['id'];
+        }
     }
-    $ids = array_column($tableau, 'id');
-    $ids = array_unique($ids);
-    return max($ids) + 1;
+    return max($id) + 1;
 }
-function ajouter($tache):void{
+function ajouter($newEtude):void{
     $datas = jsonToArray();
-    array_push($datas['tache'],$tache);
+    array_push($datas['etudiant'],$newEtude);
     arrayToJson($datas);
 }
 function tri(array $tab,string $valeur,$cle):array{
@@ -96,8 +99,8 @@ function detailById($id): array {
 }
 function modifierById($modif): void {
     $datas = jsonToArray();
-    foreach ($datas['etudiant'] as $index => $tache) {
-        if ((int)$tache['id'] === (int)$modif['id']) {
+    foreach ($datas['etudiant'] as $index => $mod) {
+        if ((int)$mod['id'] === (int)$modif['id']) {
             $datas['etudiant'][$index] = $modif;
             arrayToJson($datas);
             return; // sortie dès que modif faite

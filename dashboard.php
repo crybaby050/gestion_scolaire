@@ -10,7 +10,7 @@
                     <p>Realiser par seydina ababacar ben thiam etudiant en L1</p>
                 </div>
                 <div class="bout">
-                    <button class="add"><a href="<?=WEBROOT?>?page=liste" style="text-decoration: none;color:white;">+ Add Etudiant</a></button>
+                    <button class="add"><a href="<?=WEBROOT?>?page=ajout" style="text-decoration: none;color:white;">+ Add Etudiant</a></button>
                     <button class="imp"><a href="<?=WEBROOT?>?page=liste" style="text-decoration: none;color:rgb(42, 98, 255);">Voir Etudiant</a></button>
                 </div>
             </div>

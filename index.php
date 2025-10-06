@@ -52,10 +52,49 @@ if (isset($_REQUEST['page'])) {
             }
             require_once('detail.php');
         break;
-        case 'ajetu' :
+        case 'ajout' :
             $classe=findAllClasse();
+            $etude = findAllEtudiant();
+            $errors=[];
             if(isset($_REQUEST['ajouter'])){
-                
+                $lib = trim($_REQUEST['nom']);
+                $pre = trim($_REQUEST['pre']);
+                $clas = trim($_REQUEST['cla']);
+                $mail = trim($_REQUEST['mai']);
+                $tel = trim($_REQUEST['tel']);
+                $ad = trim($_REQUEST['adr']);
+                if(empty($lib)){
+                    $errors['nom']="Champ obligatoire";
+                }
+                if(empty($pre)){
+                    $errors['pre']="Champ obligatoire";
+                }
+                if(empty($mail)){
+                    $errors['mai']="Champ obligatoire";
+                }
+                if(empty($tel)){
+                    $errors['tel']="Champ obligatoire";
+                }
+                // if(empty($clas)){
+                //     $errors['cla']="Champ obligatoire";
+                // }
+                if(empty($ad)){
+                    $errors['adr']="Champ obligatoire";
+                }
+                if(empty($errors)){
+                    $newEtude=[
+                        'id'=> nouveauId($etude),
+                        'nom'=>$lib,
+                        'prenom'=>$pre,
+                        'idClasse'=>(int)$clas,
+                        'email'=>$mail,
+                        'telephone'=>$tel,
+                        'adresse'=>$ad
+                    ];
+                    ajouter($newEtude);
+                    header("location:".WEBROOT."?page=liste");
+                    exit;
+                }
             }
             require_once('ajoutEtudiant.php');
         break;
