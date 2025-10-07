@@ -56,6 +56,8 @@ if (isset($_REQUEST['page'])) {
             $classe=findAllClasse();
             $etude = findAllEtudiant();
             $errors=[];
+            $verif=true;
+            $veriftel=true;
             if(isset($_REQUEST['ajouter'])){
                 $lib = trim($_REQUEST['nom']);
                 $pre = trim($_REQUEST['pre']);
@@ -63,6 +65,8 @@ if (isset($_REQUEST['page'])) {
                 $mail = trim($_REQUEST['mai']);
                 $tel = trim($_REQUEST['tel']);
                 $ad = trim($_REQUEST['adr']);
+                $verif = verificationUnicite($mail,"email");
+                $veriftel = verificationUnicite($tel,"telephone");
                 if(empty($lib)){
                     $errors['nom']="Champ obligatoire";
                 }
@@ -71,13 +75,14 @@ if (isset($_REQUEST['page'])) {
                 }
                 if(empty($mail)){
                     $errors['mai']="Champ obligatoire";
+                }elseif($verif == false){
+                    $errors['mai']="mail déja utiliser";
                 }
                 if(empty($tel)){
                     $errors['tel']="Champ obligatoire";
+                }elseif($veriftel == false){
+                    $errors['tel']="Numéro de telephone déja attribuer";
                 }
-                // if(empty($clas)){
-                //     $errors['cla']="Champ obligatoire";
-                // }
                 if(empty($ad)){
                     $errors['adr']="Champ obligatoire";
                 }
@@ -100,6 +105,7 @@ if (isset($_REQUEST['page'])) {
         break;
         case 'modif':
             $classe=findAllClasse();
+            $etude=findAllEtudiant();
             $error1="";
             $error2="";
             $error3="";
@@ -124,10 +130,10 @@ if (isset($_REQUEST['page'])) {
                     $error2="champ obligatoire";
                     $verif=false;
                 }
-                if(empty($clas)){
-                    $error3="champ obligatoire";
-                    $verif=false;
-                }
+                // if(empty($clas)){
+                //     $error3="champ obligatoire";
+                //     $verif=false;
+                // }
                 if(empty($mail)){
                     $error5="champ obligatoire";
                     $verif=true;

@@ -146,3 +146,12 @@ function filteredByClasse($libelle, $etudiants,$classes){
     $etus = getEtudiantByClasse($etudiants,$classe);
     return $etus;
 }
+function verificationUnicite(mixed $data,string $a):bool{
+    $etudes=findAllEtudiant();
+    foreach($etudes as $etude){
+        if($etude[$a]==$data){
+            return false;
+        }
+    }
+    return true;
+}

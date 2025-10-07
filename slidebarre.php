@@ -8,7 +8,7 @@
                     <ul>
                         <li><i class="fas fa-home"></i><a href="?page=dashboard">ACCEUIL</a></li>
                         <li><i class="fa-solid fa-user-group"></i><a href="?page=liste">ETUDIANT</a></li>
-                        <li><strong>+</strong><i class="fa-solid fa-user-group"></i><a href="?page=ajetu">ADD ETUDIANT</a></li>
+                        <li><strong>+</strong><i class="fa-solid fa-user-group"></i><a href="?page=ajout">ADD ETUDIANT</a></li>
                         <li><i class="fa-solid fas fa-book-open"></i><a href="?page=filiere">FILIÈRE</a></li>
                         <li><i class="fa-solid fas fa-school"></i></i><a href="?page=classe">CLASSE</a></li>
                         <li><i class="fa-solid fa-chart-line"></i>PROFESSEUR</li>
