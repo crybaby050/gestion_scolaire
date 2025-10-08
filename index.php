@@ -1,7 +1,6 @@
 <?php
 ob_start();
 require_once('fonction.php');
-// require_once('login.php');
 define("WEBROOT", "http://localhost:8000/");
 if (isset($_REQUEST['page'])) {
     if (!isset($_SESSION["userConnect"])) {
@@ -204,19 +203,79 @@ if (isset($_REQUEST['page'])) {
                     $errors['code'] = 'Ce code existe déja';
                 }
                 if(empty($errors)){
-                    $newCode=[
+                    $newClasse=[
                         "id" => nouveauId($classe),
                         "libelle" => $lib,
                         "code" => $code,
                         "idFiliere" => $_REQUEST['fil'],
                         "idNiveau" => $_REQUEST['niv']
                     ];
-                    ajouter($newEtude,'classe');
+                    ajouter($newClasse,'classe');
                     header("location:".WEBROOT."?page=classe");
                     exit;
                 }
             }
             require_once('ajoutClasse.php');
+        break;
+        case 'filiere':
+            $filiere=findAllFilliere();
+            $errors=[];
+            $verif=true;
+            if(isset($_REQUEST['ajfil'])){
+                $lib=trim($_REQUEST['nom']);
+                // $lib=lcfirst($lib);
+                $verif=verificationUniciteOnFiliere($lib,'libelle');
+                $desc=trim($_REQUEST['desc']);
+                if(empty($lib)){
+                    $errors['lib'] ="Champ obligatoire";
+                }elseif($verif == false){
+                    $errors['lib'] ='Ce nom existe déja';
+                }
+                if(empty($desc)){
+                    $desc='Aucun description pour ce filiere';
+                }
+                if(empty($errors)){
+                    $newFiliere = [
+                        "id" => nouveauId($filiere),
+                        "libelle" => $lib,
+                        "description" => $desc
+                    ];
+                    ajouter($newFiliere,'filiere');
+                    header("location:".WEBROOT."?page=filiere");
+                    exit;
+                }
+            }
+            require_once('filiere.php');
+        break;
+        case 'niveau':
+            $niveau=findAllNiveau();
+            $errors=[];
+            $verif=true;
+            if(isset($_REQUEST['ajniv'])){
+                $lib=trim($_REQUEST['nom']);
+                // $lib=lcfirst($lib);
+                $verif=verificationUniciteOnNiveau($lib,'libelle');
+                $desc=trim($_REQUEST['desc']);
+                if(empty($lib)){
+                    $errors['lib'] ="Champ obligatoire";
+                }elseif($verif == false){
+                    $errors['lib'] ='Ce nom existe déja';
+                }
+                if(empty($desc)){
+                    $desc='Aucun description pour ce filiere';
+                }
+                if(empty($errors)){
+                    $newNiveau = [
+                        "id" => nouveauId($niveau),
+                        "libelle" => $lib,
+                        "description" => $desc
+                    ];
+                    ajouter($newNiveau,'niveau');
+                    header("location:".WEBROOT."?page=niveau");
+                    exit;
+                }
+            }
+            require_once('niveau.php');
         break;
         default:
         break;

@@ -58,7 +58,11 @@
                                 <td><?= getLibelleByIdElement($filiere,$classe['idFiliere']) ?></td>
                                 <td><?= getLibelleByIdElement($niveau,$classe['idNiveau']) ?></td>
                                 <?php $id = $classe['id']?>
-                                <td><a href=""><i class="fa-solid fa-pencil"></i></a></td>
+                                <td class="confclasse">
+                                    <a href=""><i class="fa-solid fa-pencil"></i></a>
+                                    <a href=""><i class="fa-solid fa-eye"></i></a>
+                                    <a href=""><i class="fa-solid fa-trash"></i></a>
+                                </td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>

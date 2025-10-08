@@ -103,7 +103,7 @@
                         <div class="meet">
                             <p class="m1">Remind me</p>
                             <p class="m2">MEETING WITH BEN COMPANY</p>
-                            <p class="m3">Time: 02.00 pm - 4:00 pm</p>.
+                            <p class="m3">Time: 02.00 pm - 4:00 pm</p>
                             <button><i class="fa-solid fa-video"></i>Start meeting</button>
                         </div>
                     </div>

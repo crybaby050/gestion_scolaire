@@ -13,7 +13,7 @@
                         <div class="infdet">
                             <div>Nom :<?= $detail['nom'] ?></div>
                             <div>Prenom :<?= $detail['prenom'] ?></div>
-                            <div>Classe :<?= getLibelleByIdClasse($classe,$detail['idClasse']) ?></div>
+                            <div>Classe :<?= getLibelleByIdElement($classe,$detail['idClasse']) ?></div>
                             <div>Mail :<?= $detail['email'] ?></div>
                             <div>Telephone :<?= $detail['telephone'] ?></div>
                             <div>Adresse :<?= $detail['adresse'] ?></div>    

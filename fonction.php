@@ -64,16 +64,6 @@ function tri(array $tab,string $valeur,$cle):array{
     }
     return $tabNiveau;
 }
-// function modifierById($modif):void{
-//     $datas=jsonToArray();
-//     foreach ($datas['etudiant'] as $index => $tache) {
-//         if ($tache['id'] == $modif['id']) {
-//             $datas['etudiant'][$index]=$modif;
-//             arrayToJson($datas);
-//             return;
-//         }
-//     }
-// }
 function findUserConnect(string $login, string $mdp): array{
     $users=findAllUsers();
     foreach ($users as $user) {
@@ -107,14 +97,11 @@ function modifierById($modif): void {
         }
     }
 }
-
 function dd(mixed $data): void {
     echo "<pre>";
     var_dump($data);
     echo "</pre>";
 }
-
-
 function getLibelleByIdElement($elem,$id){
     foreach ($elem as $c) {
         if($c["id"] == $id){
@@ -122,7 +109,6 @@ function getLibelleByIdElement($elem,$id){
         }
     }
 }
-
 function getClasseByLibelle($classes,$libelle){
     foreach ($classes as $c) {
         if($c["libelle"] == $libelle){
@@ -130,7 +116,6 @@ function getClasseByLibelle($classes,$libelle){
         }
     }
 }
-
 function getEtudiantByClasse($etudiants, $classe){
     $etus = [];
     foreach ($etudiants as $e) {
@@ -140,7 +125,6 @@ function getEtudiantByClasse($etudiants, $classe){
     }
     return $etus;
 }
-
 function getNiveauByLibelle($niveau,$libelle){
     foreach($niveau as $n){
         if($n["libelle"] == $libelle){
@@ -148,7 +132,6 @@ function getNiveauByLibelle($niveau,$libelle){
         }
     }
 }
-
 function getFiliereByLibelle($filiere,$libelle){
     foreach($filiere as $n){
         if($n["libelle"] == $libelle){
@@ -156,7 +139,6 @@ function getFiliereByLibelle($filiere,$libelle){
         }
     }
 }
-
 function getClasseByNiveau($classe,$niveau){
     $clas=[];
     foreach($classe as $c){
@@ -175,25 +157,21 @@ function getClasseByFiliere($classe,$filiere){
     }
     return $clas;
 }
-
 function filteredByClasse($libelle, $etudiants,$classes){
     $classe = getClasseByLibelle($classes,$libelle);
     $etus = getEtudiantByClasse($etudiants,$classe);
     return $etus;
 }
-
 function filterByNiveau($niveau,$libelle,$classe){
     $niveau = getNiveauByLibelle($niveau,$libelle);
     $clas = getClasseByNiveau($classe,$niveau);
     return $clas;
 }
-
 function filterByFiliere($filieres,$libelle,$classe){
     $filiere = getNiveauByLibelle($filieres,$libelle);
     $clas = getClasseByNiveau($classe,$filiere);
     return $clas;
 }
-
 function verificationUnicite(mixed $data,string $a):bool{
     $etudes=findAllEtudiant();
     foreach($etudes as $etude){
@@ -207,6 +185,24 @@ function verificationUniciteOnClasse(mixed $data,string $a):bool{
     $classes=findAllClasse();
     foreach($classes as $classe){
         if($classe[$a] == $data){
+            return false;
+        }
+    }
+    return true;
+}
+function verificationUniciteOnNiveau(mixed $data,string $a):bool{
+    $niveaux=findAllNiveau();
+    foreach($niveaux as $niveau){
+        if($niveau[$a] == $data){
+            return false;
+        }
+    }
+    return true;
+}
+function verificationUniciteOnFiliere(mixed $data,string $a):bool{
+    $filieres=findAllFilliere();
+    foreach($filieres as $filiere){
+        if($filiere[$a] == $data){
             return false;
         }
     }

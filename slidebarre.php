@@ -12,7 +12,7 @@
                         <li><i class="fa-solid fas fa-school"></i></i><a href="?page=classe">CLASSE</a></li>
                         <li><strong>+</strong><i class="fa-solid fas fa-school"></i></i><a href="?page=ajClasse">ADD CLASSE</a></li>
                         <li><i class="fa-solid fas fa-book-open"></i><a href="?page=filiere">FILIÈRE</a></li>
-                        <li><i class="fa-solid fa-chart-line"></i>NIVEAU</li>
+                        <li><i class="fa-solid fa-chart-line"></i><a href="?page=niveau">NIVEAU</a></li>
                     </ul>
                 </div>
             </div>
