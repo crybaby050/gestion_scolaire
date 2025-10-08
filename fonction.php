@@ -50,9 +50,9 @@ function nouveauId(array $tableau): int {
     }
     return max($id) + 1;
 }
-function ajouter($newEtude):void{
+function ajouter($newEtude,string $a):void{
     $datas = jsonToArray();
-    array_push($datas['etudiant'],$newEtude);
+    array_push($datas[$a],$newEtude);
     arrayToJson($datas);
 }
 function tri(array $tab,string $valeur,$cle):array{
@@ -115,8 +115,8 @@ function dd(mixed $data): void {
 }
 
 
-function getLibelleByIdClasse($classes,$id){
-    foreach ($classes as $c) {
+function getLibelleByIdElement($elem,$id){
+    foreach ($elem as $c) {
         if($c["id"] == $id){
             return $c["libelle"];
         }
@@ -141,15 +141,72 @@ function getEtudiantByClasse($etudiants, $classe){
     return $etus;
 }
 
+function getNiveauByLibelle($niveau,$libelle){
+    foreach($niveau as $n){
+        if($n["libelle"] == $libelle){
+            return $n;
+        }
+    }
+}
+
+function getFiliereByLibelle($filiere,$libelle){
+    foreach($filiere as $n){
+        if($n["libelle"] == $libelle){
+            return $n;
+        }
+    }
+}
+
+function getClasseByNiveau($classe,$niveau){
+    $clas=[];
+    foreach($classe as $c){
+        if($c['idNiveau'] == $niveau['id']){
+            $clas[] = $c;
+        }
+    }
+    return $clas;
+}
+function getClasseByFiliere($classe,$filiere){
+    $clas=[];
+    foreach($classe as $c){
+        if($c['idFiliere'] == $filiere['id']){
+            $clas[] = $c;
+        }
+    }
+    return $clas;
+}
+
 function filteredByClasse($libelle, $etudiants,$classes){
     $classe = getClasseByLibelle($classes,$libelle);
     $etus = getEtudiantByClasse($etudiants,$classe);
     return $etus;
 }
+
+function filterByNiveau($niveau,$libelle,$classe){
+    $niveau = getNiveauByLibelle($niveau,$libelle);
+    $clas = getClasseByNiveau($classe,$niveau);
+    return $clas;
+}
+
+function filterByFiliere($filieres,$libelle,$classe){
+    $filiere = getNiveauByLibelle($filieres,$libelle);
+    $clas = getClasseByNiveau($classe,$filiere);
+    return $clas;
+}
+
 function verificationUnicite(mixed $data,string $a):bool{
     $etudes=findAllEtudiant();
     foreach($etudes as $etude){
         if($etude[$a]==$data){
+            return false;
+        }
+    }
+    return true;
+}
+function verificationUniciteOnClasse(mixed $data,string $a):bool{
+    $classes=findAllClasse();
+    foreach($classes as $classe){
+        if($classe[$a] == $data){
             return false;
         }
     }

@@ -860,12 +860,12 @@ body{
 .ajEtudiant button{
     height: 35%;
     margin-right: 5%;
-    width: 60%;
+    width: 40%;
     border-radius: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5%;
+    gap: 3%;
     font-weight: bold;
     font-size: 100%;
     background: linear-gradient(to bottom right , rgb(42, 98, 255), rgb(0,200, 249));
@@ -873,6 +873,10 @@ body{
     font-weight: bold;
     border: none;
     animation: pulse 5s infinite;
+}
+.ajEtudiant button a{
+    text-decoration: none;
+    color: white;
 }
 @keyframes pulse {
     0% {
@@ -899,6 +903,10 @@ body{
 }
 .tableEtudiant table tbody{
     text-align: center;
+}
+.tableEtudiant table{
+    margin: 0;
+    width: 100%;
 }
 .tableEtudiant table thead{
     height: 8vh;
@@ -977,6 +985,15 @@ body{
     align-items: center;
     padding-left: 1%;
 }
+.taj{
+    /* font-weight: bold; */
+    font-size: 160%;
+    padding-left: 1%;
+    padding-top: 2%;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
 .ajout{
     width: 90%;
     height: 80vh;
@@ -988,15 +1005,6 @@ body{
     flex-wrap: wrap;
     background-color: none;
     padding: 0;
-}
-.taj{
-    /* font-weight: bold; */
-    font-size: 160%;
-    padding-left: 1%;
-    padding-top: 2%;
-    margin: 0;
-    width: 100%;
-    text-align: center;
 }
 .ajout form{
     height: 80%;
@@ -1059,6 +1067,9 @@ body{
     align-items: center;
     display: flex;
     flex-wrap: wrap;
+}
+.lab p{
+    color: red;
 }
 .lab label{
     width: 25%;
@@ -1439,4 +1450,141 @@ td{
 .formodif form div p{
     color: red;
     margin: 0;
+}
+/* Partie sur la liste des classe */
+.tableClasse{
+    width: 98%;
+    margin-left: 1%;
+    margin-top: 1%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.filtreClasse{
+    height: 10vh;
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    box-shadow: 0px 0px 2px rgba(78, 77, 77, 0.352);
+    border-radius: 10px;
+}
+.filtreClasse div{
+    width: 45%;
+}
+.filtreClasse div form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 2%;
+}
+.filtreClasse div form button{
+    height: 40%;
+    margin-bottom: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    background: linear-gradient(to bottom right , rgb(42, 98, 255), rgb(66, 217, 255));
+    border-radius: 50px;
+}
+.filtreClasse div form button i{
+    font-size: 80%;
+}
+.era{
+    width: 100%;
+    border: 1px solid green;
+    height: 40%;
+}
+.era select{
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+}
+.tableClasse table{
+    width: 100%;
+    margin: 0;
+}
+.tableClasse table tbody{
+    text-align: center;
+}
+.tableClasse table thead{
+    height: 8vh;
+    background-color: rgb(42, 98, 255);
+    color: white;
+}
+.tableClasse table tbody tr td{
+    height: 5vh;
+}
+/* Partie ajout des classe */
+.ajoutc{
+    width: 90%;
+    height: 77vh;
+    margin-left: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: none;
+    padding: 0;
+}
+.ajoutc form{
+    height: 60%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: 1px 0px 5px rgba(78, 77, 77, 0.352);
+}
+.ajoutc form button{
+    margin-bottom: 3%;
+}
+.inpc{
+    height: 70%;
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.labc{
+    height: 35%;
+    width: 48%;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+.labc p{
+    color: red;
+}
+.labc label{
+    width: 25%;
+    font-size: 105%;
+    height: 20%;
+}
+.labc select{
+    width: 100%;
+    height: 45%;
+    border: 1px solid rgb(210, 210, 210);
+    /* border: none; */
+    border-radius: 5px;
+    background-color: rgb(244, 244, 244);
+}
+.labc input{
+    width: 98%;
+    height: 45%;
+    border: 1px solid rgb(210, 210, 210);
+    /* border: none; */
+    border-radius: 5px;
+    background-color: rgb(244, 244, 244);
 }

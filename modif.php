@@ -16,11 +16,11 @@
                         <input type="text" name="pre" value=<?=$charge['prenom'] ?? ""?>>
                         <p><?=$error2?></p>
                     </div>
-                    <!-- <div>
+                    <div>
                         <label for="">Mail</label>
-                        <input type="text" name="mail" value=<//$charge['email']?>>
-                        <p><//$error5?></p>
-                    </div> -->
+                        <input type="text" name="mail" value=<?=$charge['email']?> readonly>
+                        <p><?=$error5?></p>
+                    </div>
                     <div>
                         <label for="">class</label>
                         <select  id="" name="class">
@@ -31,7 +31,7 @@
                     </div>
                     <div>
                         <label for="">Tel</label>
-                        <input type="number" name="tel" id="" value=<?=$charge['telephone'] ?? ""?>>
+                        <input type="number" name="tel" id="" value=<?=$charge['telephone']?> readonly>
                         <p><?=$error6?></p>
                     </div>
                     <div>

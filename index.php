@@ -55,7 +55,7 @@ if (isset($_REQUEST['page'])) {
         case 'ajout' :
             $classe=findAllClasse();
             $etude = findAllEtudiant();
-            $errors=[];
+            $errors = [];
             $verif=true;
             $veriftel=true;
             if(isset($_REQUEST['ajouter'])){
@@ -96,7 +96,7 @@ if (isset($_REQUEST['page'])) {
                         'telephone'=>$tel,
                         'adresse'=>$ad
                     ];
-                    ajouter($newEtude);
+                    ajouter($newEtude,'etudiant');
                     header("location:".WEBROOT."?page=liste");
                     exit;
                 }
@@ -168,8 +168,58 @@ if (isset($_REQUEST['page'])) {
             // }
             require_once('modif.php');
         break;
+        case 'classe':
+            $niveau = findAllNiveau();
+            $filiere = findAllFilliere();
+            $classes = findAllClasse();
+            if(isset($_REQUEST['fil'])){
+                $lib = trim($_REQUEST['fili']);
+                $classes = filterByFiliere($filiere,$lib,$classes);
+            }elseif(isset($_REQUEST['niv'])){
+                $libe = trim($_REQUEST['nive']);
+                $classes = filterByNiveau($niveau,$libe,$classes);
+            }
+            require_once('classe.php');
+        break;
+        case 'ajClasse':
+            $niveau = findAllNiveau();
+            $filiere = findAllFilliere();
+            $classe =findAllClasse();
+            $errors=[];
+            $verif=true;
+            $verifcode=true;
+            if(isset($_REQUEST['ajClasses'])){
+                $lib = trim($_REQUEST['nom']);
+                $verif = verificationUniciteOnClasse($lib,'libelle');
+                $code = trim($_REQUEST['cod']);
+                $verifcode = verificationUniciteOnClasse($code,'code');
+                if(empty($lib)){
+                    $errors['nom'] = 'Champ obligatoire';
+                }elseif($verif == false){
+                    $errors['nom'] = 'Cette classe existe déjà';
+                }
+                if(empty($code)){
+                    $errors['code'] = 'Champ obligatoire';
+                }elseif($verifcode == false){
+                    $errors['code'] = 'Ce code existe déja';
+                }
+                if(empty($errors)){
+                    $newCode=[
+                        "id" => nouveauId($classe),
+                        "libelle" => $lib,
+                        "code" => $code,
+                        "idFiliere" => $_REQUEST['fil'],
+                        "idNiveau" => $_REQUEST['niv']
+                    ];
+                    ajouter($newEtude,'classe');
+                    header("location:".WEBROOT."?page=classe");
+                    exit;
+                }
+            }
+            require_once('ajoutClasse.php');
+        break;
         default:
-            break;
+        break;
     }
 }else{
     if (isset($_SESSION["userConnect"])) {

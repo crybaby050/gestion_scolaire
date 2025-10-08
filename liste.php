@@ -25,7 +25,7 @@
                                 <!-- <input type="text" name="niv"> -->
                             </div>
                             <button type="submit" name="nivfil"><i class="fa-solid fa-filter"></i>filtrer</button>
-                            <a href="<?= WEBROOT ?>?page=liste" class="">rafraichir</a>
+                            <button><a href="<?= WEBROOT ?>?page=liste" class="">rafraichir</a></button>
                         </form>
                     </div>
                 </div>
@@ -47,14 +47,14 @@
                             <tr>
                                 <td><?= $k['nom'] ?></td>
                                 <td><?= $k['prenom'] ?></td>
-                                <td><?= getLibelleByIdClasse($classe,$k['idClasse']) ?></td>
+                                <td><?= getLibelleByIdElement($classe,$k['idClasse']) ?></td>
                                 <td><?= $k['telephone'] ?></td>
                                 <td><?= $k['email'] ?></td>
                                 <td><?= $k['adresse'] ?></td>
                                 <?php $id = $k['id']?>
                                 <td><a href="<?=WEBROOT?>?page=detail&id=<?=$id?>"><i class="fa-solid fa-eye"></i></a></td>
                             </tr>
-                            <?php endforeach ?>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
             </div>
