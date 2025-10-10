@@ -23,7 +23,7 @@
                         </div>
                         <div class="detBouton">
                             <button><a href="<?=WEBROOT?>?page=modif&id=<?=$id?>">Modifier</a></button>
-                            <button><a href="<?=WEBROOT?>?page=delete&id=<?=$id?>">Supprimer</a></button>
+                            <button><a href="<?=WEBROOT?>?page=liste" onclick="return confirm('Cette fonctionalité est pas encore disponible ?')">Supprimer</a></button>
                         </div>
                     </div>
                 </div>

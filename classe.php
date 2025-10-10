@@ -50,7 +50,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?= presence($classes) ?>
+                        <?php presence($classes) ?>
                         <?php foreach($classes as $classe) :?>
                             <tr>
                                 <td><?= $classe['libelle'] ?></td>

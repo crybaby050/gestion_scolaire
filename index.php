@@ -53,12 +53,13 @@ if (isset($_REQUEST['page'])) {
             if (isset($_REQUEST['id'])) {
                 $id = intval($_REQUEST['id']);
                 $detail = detailById($id);
-                if ($page == 'delete') {
-                    if (isset($_REQUEST['id'])) {
-                        $id = intval($_REQUEST['id']);
-                        delEtudiantById($id);
-                    }
-                }
+                // if ($page == 'del') {
+                    // if (isset($_REQUEST['id'])) {
+                    //     $id = intval($_REQUEST['id']);
+                    //     delEtudiantById($id);
+                    //     // require_once('liste.php');
+                    // }
+                // }
             }
             require_once('detail.php');
         break;
