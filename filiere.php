@@ -28,9 +28,13 @@
             <?php foreach ($filiere as $filier) : ?>
                 <tr>
                     <td><?= $filier['libelle'] ?></td>
+                    <?php $id=$filier['id']?>
                     <td>
-                        <a href="">
+                        <a href="<?= WEBROOT ?>?page=classefiliere&id=<?= $filier['id'] ?>">
                             <button>Voir liste</button>
+                        </a>
+                        <a href="<?= WEBROOT ?>?page=filiere&id=<?= $id ?>" onclick="return confirm('La supression de cette filiere entrainera la supression des classes et etudiants auquel elle est liée.\nVoulez-vous confirmer ?')">
+                            <i class="fa-solid fa-trash"></i>
                         </a>
                     </td>
                 </tr>

@@ -22,9 +22,9 @@ if (isset($_REQUEST['page'])) {
             $nbFilliere = compteur($filiere);
             $nbNiveau = compteur($niveau);
             require_once('dashboard.php');
-            break;
+        break;
         case 'liste':
-            $test = findAllEtudiant();
+            // $test = findAllEtudiant();
             $niveau = findAllNiveau();
             $classe = findAllClasse();
             $error = '';
@@ -40,13 +40,13 @@ if (isset($_REQUEST['page'])) {
             }
             // $classe=findAllClasse();
             require_once('liste.php');
-            break;
+        break;
         case 'logout':
             session_unset();
             session_destroy();
             header("location:" . WEBROOT);
             exit;
-            break;
+        break;
         case 'detail':
             $classe = findAllClasse();
             $detail = [];
@@ -61,7 +61,7 @@ if (isset($_REQUEST['page'])) {
                 }
             }
             require_once('detail.php');
-            break;
+        break;
         case 'ajout':
             $classe = findAllClasse();
             $etude = findAllEtudiant();
@@ -114,7 +114,7 @@ if (isset($_REQUEST['page'])) {
                 }
             }
             require_once('ajoutEtudiant.php');
-            break;
+        break;
         case 'modif':
             $classe = findAllClasse();
             $etude = findAllEtudiant();
@@ -195,10 +195,15 @@ if (isset($_REQUEST['page'])) {
             //     $detail=detailById($id);
             // }
             require_once('modif.php');
-            break;
+        break;
         case 'classe':
             $niveau = findAllNiveau();
             $filiere = findAllFilliere();
+            $classes = findAllClasse();
+            if(isset($_REQUEST['id'])){
+                $id=intval($_REQUEST['id']);
+                delClasseWithEtudiant($id);
+            }
             $classes = findAllClasse();
             if (isset($_REQUEST['fil'])) {
                 $lib = trim($_REQUEST['fili']);
@@ -207,13 +212,8 @@ if (isset($_REQUEST['page'])) {
                 $libe = trim($_REQUEST['nive']);
                 $classes = filterByNiveau($niveau, $libe, $classes);
             }
-            if(isset($_REQUEST['id'])){
-                $id=intval($_REQUEST['id']);
-                delClasseWithEtudiant($id);
-            }
-            $classes = findAllClasse();
             require_once('classe.php');
-            break;
+        break;
         case 'ajClasse':
             $niveau = findAllNiveau();
             $filiere = findAllFilliere();
@@ -250,24 +250,23 @@ if (isset($_REQUEST['page'])) {
                 }
             }
             require_once('ajoutClasse.php');
-            break;
+        break;
         case 'filiere':
-            $filiere = findAllFilliere();
             $errors = [];
             $verif = true;
+            if(isset($_REQUEST['id'])){
+                $id=intval($_REQUEST['id']);
+                delFiliereWithClasseWithEtudiant($id);
+            }
+            $filiere = findAllFilliere();
             if (isset($_REQUEST['ajfil'])) {
                 $lib = trim($_REQUEST['nom']);
-                // $lib=lcfirst($lib);
                 $verif = verificationUniciteOnFiliere($lib, 'libelle');
-                // $desc = trim($_REQUEST['desc']);
                 if (empty($lib)) {
                     $errors['lib'] = "Champ obligatoire";
                 } elseif ($verif == false) {
                     $errors['lib'] = 'Ce nom existe déja';
                 }
-                // if (empty($desc)) {
-                //     $desc = 'Aucun description pour ce filiere';
-                // }
                 if (empty($errors)) {
                     $newFiliere = [
                         "id" => nouveauId($filiere),
@@ -280,11 +279,15 @@ if (isset($_REQUEST['page'])) {
                 }
             }
             require_once('filiere.php');
-            break;
+        break;
         case 'niveau':
-            $niveau = findAllNiveau();
             $errors = [];
             $verif = true;
+            if(isset($_REQUEST['id'])){
+                $id=intval($_REQUEST['id']);
+                delNiveauWithClasseWithEtudiant($id);
+            }
+            $niveau = findAllNiveau();
             if (isset($_REQUEST['ajniv'])) {
                 $lib = trim($_REQUEST['nom']);
                 // $lib=lcfirst($lib);
@@ -310,7 +313,7 @@ if (isset($_REQUEST['page'])) {
                 }
             }
             require_once('niveau.php');
-            break;
+        break;
         case 'modifClasse':
             $niveau = findAllNiveau();
             $filiere = findAllFilliere();
@@ -357,9 +360,32 @@ if (isset($_REQUEST['page'])) {
                 }
             }
             require_once('modifClasse.php');
-            break;
+        break;
+        case 'classefiliere':
+            $id=intval($_REQUEST['id']);
+            $filiere=findAllFilliere();
+            $niveau=findAllNiveau();
+            $classes=classeAndFiliere($id);
+            require_once('classefiliere.php');
+        break;
+        case 'classeniveau':
+            $id=intval($_REQUEST['id']);
+            $filiere=findAllFilliere();
+            $niveau=findAllNiveau();
+            $classes=classeAndNiveau($id);
+            require_once('classeniveau.php');
+        break;
+        case 'infoClasse':
+            $id=intval($_REQUEST['id']);
+            $etudes=classeWithEtudiant($id);
+            $classe=findAllClasse();
+            $detail=detailClasseById($id);
+            $filiere=findAllFilliere();
+            $niveau=findAllNiveau();
+            require_once('infoClasse.php');
+        break;
         default:
-            break;
+        break;
     }
 } else {
     if (isset($_SESSION["userConnect"])) {

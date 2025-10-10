@@ -154,14 +154,6 @@ function getlibelleNiveauByClasse($elem,$id){
         }
     }
 }
-
-function getClasseByLibelle($classes,$libelle){
-    foreach ($classes as $c) {
-        if($c["libelle"] == $libelle){
-            return $c;
-        }
-    }
-}
 function getEtudiantByClasse($etudiants, $classe){
     $etus = [];
     foreach ($etudiants as $e) {
@@ -178,6 +170,13 @@ function getNiveauByLibelle($niveau,$libelle){
         }
     }
 }
+function getClasseByLibelle($classes,$libelle){
+    foreach ($classes as $c) {
+        if($c["libelle"] == $libelle){
+            return $c;
+        }
+    }
+}
 function getFiliereByLibelle($filiere,$libelle){
     foreach($filiere as $n){
         if($n["libelle"] == $libelle){
@@ -185,19 +184,24 @@ function getFiliereByLibelle($filiere,$libelle){
         }
     }
 }
-function getClasseByNiveau($classe,$niveau){
+function getClasseByFiliere($classe,$filiere){
     $clas=[];
     foreach($classe as $c){
-        if($c['idNiveau'] == $niveau['id']){
+        if($c['idFiliere'] == $filiere['id']){
             $clas[] = $c;
         }
     }
     return $clas;
 }
-function getClasseByFiliere($classe,$filiere){
+function filterByFiliere($filieres,$libelle,$classe){
+    $filiere = getFiliereByLibelle($filieres,$libelle);
+    $clas = getClasseByFiliere($classe,$filiere);
+    return $clas;
+}
+function getClasseByNiveau($classe,$niveau){
     $clas=[];
     foreach($classe as $c){
-        if($c['idFiliere'] == $filiere['id']){
+        if($c['idNiveau'] == $niveau['id']){
             $clas[] = $c;
         }
     }
@@ -211,11 +215,6 @@ function filteredByClasse($libelle, $etudiants,$classes){
 function filterByNiveau($niveau,$libelle,$classe){
     $niveau = getNiveauByLibelle($niveau,$libelle);
     $clas = getClasseByNiveau($classe,$niveau);
-    return $clas;
-}
-function filterByFiliere($filieres,$libelle,$classe){
-    $filiere = getNiveauByLibelle($filieres,$libelle);
-    $clas = getClasseByNiveau($classe,$filiere);
     return $clas;
 }
 function verificationUnicite(mixed $data,string $a):bool{
@@ -276,6 +275,84 @@ function delClasseWithEtudiant($id){
                 }
             }
             unset($datas['classe'][$data]);
+            arrayToJson($datas);
+            return;
+        }
+    }
+}
+function classeAndFiliere($id){
+    $classes=findAllClasse();
+    $tab=[];
+    foreach($classes as $classe){
+        if($classe['idFiliere']==$id){
+            $tab[]=$classe;
+        }
+    }
+    return $tab;
+}
+function classeAndNiveau($id){
+    $classes=findAllClasse();
+    $tab=[];
+    foreach($classes as $classe){
+        if($classe['idNiveau']==$id){
+            $tab[]=$classe;
+        }
+    }
+    return $tab;
+}
+function classeWithEtudiant($id){
+    $etudes=findAllEtudiant();
+    $tab=[];
+    foreach($etudes as $etude){
+        if($etude['idClasse']==$id){
+            $tab[]=$etude;
+        }
+    }
+    return $tab;
+}
+function delFiliereWithClasseWithEtudiant($id){
+    $datas = jsonToArray();
+    $datasetude = jsonToArray();
+    $datasclasse =jsonToArray();
+    foreach($datasclasse['filiere'] as $fili => $c){
+        if($c['id'] == $id){
+            $moi = $c['id'];
+            foreach($datas['classe'] as $data => $k){
+                if($k['idFiliere'] == $moi){
+                    $recup = $k['id'];
+                    foreach($datas['etudiant'] as $etude =>$e){
+                        if($e['idClasse']==$recup){
+                            unset($datas['etudiant'][$etude]);
+                        }
+                    }
+                    unset($datas['classe'][$data]);
+                }
+            }
+            unset($datas['filiere'][$fili]);
+            arrayToJson($datas);
+            return;
+        }
+    }
+}
+function delNiveauWithClasseWithEtudiant($id){
+    $datas = jsonToArray();
+    $datasetude = jsonToArray();
+    $datasclasse =jsonToArray();
+    foreach($datasclasse['niveau'] as $fili => $c){
+        if($c['id'] == $id){
+            $moi = $c['id'];
+            foreach($datas['classe'] as $data => $k){
+                if($k['idNiveau'] == $moi){
+                    $recup = $k['id'];
+                    foreach($datas['etudiant'] as $etude =>$e){
+                        if($e['idClasse']==$recup){
+                            unset($datas['etudiant'][$etude]);
+                        }
+                    }
+                    unset($datas['classe'][$data]);
+                }
+            }
+            unset($datas['niveau'][$fili]);
             arrayToJson($datas);
             return;
         }

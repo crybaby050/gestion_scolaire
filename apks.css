@@ -893,7 +893,6 @@ body{
     }
 }
 .tableEtudiant{
-    border: 1px solid black;
     width: 98%;
     margin-left: 1%;
     margin-top: 1%;
@@ -1077,7 +1076,7 @@ body{
     height: 20%;
 }
 .lab select{
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 100%;
     height: 40%;
     border: 1px solid rgb(210, 210, 210);
@@ -1200,7 +1199,7 @@ td{
     border-radius: 0px;
 }
 .inpe{
-    /* border: 1px solid black ; */
+    border: 1px solid black ;
     height: 90%;
     width: 80%;
     display: flex;
@@ -1209,7 +1208,7 @@ td{
     align-items: center;
 }
 .inpes{
-    /* border: 1px solid black ; */
+    border: 1px solid black ;
     height: 90%;
     width: 80%;
     display: flex;
@@ -1305,7 +1304,7 @@ td{
 .detEtud{
     height: 70vh;
     width: 90%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin-bottom: 2%;
     margin-left: 5%;
     background-color: white;
@@ -1340,7 +1339,7 @@ td{
     border-radius: 20px 0 0 20px;
 }
 .detOther{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 100%;
     width: 60%;
     font-size: 120%;
@@ -1360,7 +1359,7 @@ td{
 .infdet{
     height: 60%;
     width: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex-wrap: wrap;
     padding-left: 3%;
@@ -1368,7 +1367,7 @@ td{
 .detBouton{
     height: 20%;
     width: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1503,7 +1502,7 @@ td{
 }
 .era{
     width: 100%;
-    border: 1px solid green;
+    border: 1px solid black;
     height: 40%;
 }
 .era select{
@@ -1678,3 +1677,42 @@ td{
 .elema table{
     text-align: center;
 }
+.infClasse{
+    height: 40vh;
+    width: 100%;
+    /* border: 1px solid black; */
+    display: flex;
+    margin-bottom: 2%;
+    background-color: white;
+    align-items: center;
+    box-shadow: 1px 0px 5px rgba(78, 77, 77, 0.352);
+    border-radius: 20px;
+}
+.imgClasse{
+    height: 96%;
+    width: 50%;
+    /* border: 1px solid black; */
+    background-image: url(image/classeimage.jpg);
+    background-position: center;
+    background-size: cover;
+    margin-left: 5px;
+    border-radius: 20px;
+}
+.detailClasse{
+    width: 40%;
+    height: 96%;
+    margin-left: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.detailClasse div{
+    width: 90%;
+    font-size: 110%;
+    padding-left: 2%;
+    font-weight: bold;
+}
+/* .elema h3{
+    margin-left: 1%;
+    width: 98%;
+} */

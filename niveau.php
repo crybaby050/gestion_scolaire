@@ -27,10 +27,14 @@
             <?= presence($niveau) ?>
             <?php foreach ($niveau as $niv) : ?>
                 <tr>
+                    <?php $id=$niv['id']?>
                     <td><?= $niv['libelle'] ?></td>
                     <td>
-                        <a href="">
+                        <a href="<?=WEBROOT?>?page=classeniveau&id=<?=$niv['id']?>">
                             <button>Voir liste</button>
+                        </a>
+                        <a href="<?= WEBROOT ?>?page=niveau&id=<?= $id ?>" onclick="return confirm('La supression de cette filiere entrainera la supression des classes et etudiants auquel elle est liée.\nVoulez-vous confirmer ?')">
+                            <i class="fa-solid fa-trash"></i>
                         </a>
                     </td>
                 </tr>
