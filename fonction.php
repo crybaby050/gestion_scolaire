@@ -87,6 +87,15 @@ function detailById($id): array {
     }
     return [];
 }
+function detailClasseById($id): array {
+    $tab = findAllClasse();
+    foreach ($tab as $v) {
+        if ($v['id'] == $id) {
+            return $v;
+        }
+    }
+    return [];
+}
 function modifierById($modif): void {
     $datas = jsonToArray();
     foreach ($datas['etudiant'] as $index => $mod) {
@@ -97,18 +106,55 @@ function modifierById($modif): void {
         }
     }
 }
+function modifierClasseById($modif): void {
+    $datas = jsonToArray();
+    foreach ($datas['classe'] as $index => $mod) {
+        if ((int)$mod['id'] === (int)$modif['id']) {
+            $datas['classe'][$index] = $modif;
+            arrayToJson($datas);
+            return; // sortie dès que modif faite
+        }
+    }
+}
 function dd(mixed $data): void {
     echo "<pre>";
     var_dump($data);
     echo "</pre>";
 }
-function getLibelleByIdElement($elem,$id){
-    foreach ($elem as $c) {
+function getLibelleByIdElement($classe,$id){
+    foreach ($classe as $c) {
         if($c["id"] == $id){
             return $c["libelle"];
         }
     }
 }
+//classe['idFiliere] que detail['idClasse]me donne l'id de la classe correspondante a partir de id bi warna si meune kham bane classe
+function getIdFiliereByClasse($elem,$id){
+    foreach ($elem as $c) {
+        if($c["id"] == $id){
+            return $c;
+        }
+    }
+}
+function getlibelleFilliereByClasse($elem,$id){
+    $classes=getIdFiliereByClasse($elem,$id);
+    $filieres=findAllFilliere();
+    foreach($filieres as $filiere){
+        if($filiere['id'] == $classes['idFiliere']){
+            return $filiere['libelle'];
+        }
+    }
+}
+function getlibelleNiveauByClasse($elem,$id){
+    $classes=getIdFiliereByClasse($elem,$id);
+    $niveaux=findAllNiveau();
+    foreach($niveaux as $niveau){
+        if($niveau['id'] == $classes['idFiliere']){
+            return $niveau['libelle'];
+        }
+    }
+}
+
 function getClasseByLibelle($classes,$libelle){
     foreach ($classes as $c) {
         if($c["libelle"] == $libelle){
@@ -207,4 +253,31 @@ function verificationUniciteOnFiliere(mixed $data,string $a):bool{
         }
     }
     return true;
+}
+function delEtudiantById($id){
+    $datas = jsonToArray();
+    foreach($datas['etudiant'] as $data => $k){
+        if($k['id'] == $id){
+            unset($datas['etudiant'][$data]);
+            arrayToJson($datas);
+            return;
+        }
+    }
+}
+function delClasseWithEtudiant($id){
+    $datas = jsonToArray();
+    $datasetude = jsonToArray();
+    foreach($datas['classe'] as $data => $k){
+        if($k['id'] == $id){
+            $recup = $k['id'];
+            foreach($datas['etudiant'] as $etude =>$e){
+                if($e['idClasse']==$recup){
+                    unset($datas['etudiant'][$etude]);
+                }
+            }
+            unset($datas['classe'][$data]);
+            arrayToJson($datas);
+            return;
+        }
+    }
 }

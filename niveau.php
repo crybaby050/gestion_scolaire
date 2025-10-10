@@ -8,10 +8,10 @@
                     <input type="text" name="nom" id="" placeholder="Niveau" value=<?= $lib ?? "" ?>>
                     <p><?= $errors['lib'] ?? "" ?></p>
                 </div>
-                <div class="filab2">
+                <!-- <div class="filab2">
                     <label for="">Description :</label>
                     <input type="text" name="desc" id="" placeholder="Description">
-                </div>
+                </div> -->
             </div>
             <button type="submit" class="class-bouton" name="ajniv" value="">Enregistrer</button>
         </form>
@@ -20,7 +20,7 @@
         <thead>
             <tr>
                 <th>Nom</th>
-                <th>Descritpion</th>
+                <th>Classe rattacher avec niveau</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +28,11 @@
             <?php foreach ($niveau as $niv) : ?>
                 <tr>
                     <td><?= $niv['libelle'] ?></td>
-                    <td><?= $niv['description'] ?></td>
+                    <td>
+                        <a href="">
+                            <button>Voir liste</button>
+                        </a>
+                    </td>
                 </tr>
             <?php endforeach ?>
         </tbody>

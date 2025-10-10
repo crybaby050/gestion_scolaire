@@ -32,6 +32,7 @@
                 <table border="1">
                     <thead>
                         <tr>
+                            <th>Matricule</th>
                             <th>Nom</th>
                             <th>Prenom</th>
                             <th>Classe</th>
@@ -45,6 +46,7 @@
                         <?= presence($etude) ?>
                         <?php foreach($etude as $k) :?>
                             <tr>
+                                <td><?= $k['matricule'] ?></td>
                                 <td><?= $k['nom'] ?></td>
                                 <td><?= $k['prenom'] ?></td>
                                 <td><?= getLibelleByIdElement($classe,$k['idClasse']) ?></td>
@@ -52,7 +54,13 @@
                                 <td><?= $k['email'] ?></td>
                                 <td><?= $k['adresse'] ?></td>
                                 <?php $id = $k['id']?>
-                                <td><a href="<?=WEBROOT?>?page=detail&id=<?=$id?>"><i class="fa-solid fa-eye"></i></a></td>
+                                <td class="confclasse">
+                                    <a href="<?=WEBROOT?>?page=modif&id=<?=$id?>"><i class="fa-solid fa-pencil"></i></a>
+                                    <a href="<?=WEBROOT?>?page=detail&id=<?=$id?>"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="<?=WEBROOT?>?page=liste&id=<?=$id?>" onclick="return confirm('Voulez-vous vraiment supprimer cet étudiant ?')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </td>
                             </tr>
                         <?php endforeach ?>
                     </tbody>

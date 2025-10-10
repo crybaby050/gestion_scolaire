@@ -1379,10 +1379,17 @@ td{
     width: 35%;
     border-radius: 50px;
     background: linear-gradient(to bottom right , rgb(42, 98, 255), rgb(66, 217, 255));
-    color: white;
     font-weight: bold;
     font-size: 90%;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detBouton button a{
+    width: 100%;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1630,14 +1637,14 @@ td{
     margin-left: 1%;
 }
 .filab{
-    width: 30%;
+    width: 100%;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 2%;
 }
 .filab input{
-    width: 80%;
+    width: 93%;
     height: 80%;
     border-radius: 5px;
 }
@@ -1646,7 +1653,7 @@ td{
     margin-top: -1%;
     color: red;
 }
-.filab2{
+/* .filab2{
     width: 68%;
     display: flex;
     align-items: center;
@@ -1656,7 +1663,7 @@ td{
     height: 80%;
     border-radius: 5px;
     width: 85%;
-}
+} */
 .filpage form button{
     border-radius: 50px;
 }

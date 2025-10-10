@@ -6,7 +6,7 @@ if (isset($_REQUEST['page'])) {
     if (!isset($_SESSION["userConnect"])) {
         header("location:" . WEBROOT);
         exit;
-    } 
+    }
     $nameUser = $_SESSION['userConnect'];
     $page = $_REQUEST['page'];
     require_once('tete.php');
@@ -24,140 +24,169 @@ if (isset($_REQUEST['page'])) {
             require_once('dashboard.php');
             break;
         case 'liste':
-            $etude = findAllEtudiant();
             $test = findAllEtudiant();
             $niveau = findAllNiveau();
-            $classe=findAllClasse();
+            $classe = findAllClasse();
             $error = '';
-            if(isset($_REQUEST['nivfil'])){
-                $val = trim($_REQUEST['niv']);
-                    $etude = filteredByClasse($val,$etude,$classe);
-                    require_once('liste.php');
+            if (isset($_REQUEST['id'])) {
+                $id = intval($_REQUEST['id']);
+                delEtudiantById($id);
             }
+            $etude = findAllEtudiant();
+            if (isset($_REQUEST['nivfil'])) {
+                $val = trim($_REQUEST['niv']);
+                $etude = filteredByClasse($val, $etude, $classe);
+                require_once('liste.php');
+            }
+            // $classe=findAllClasse();
             require_once('liste.php');
             break;
         case 'logout':
-            session_unset(); 
-            session_destroy(); 
-            header("location:" . WEBROOT); 
-        exit;
-        break;
+            session_unset();
+            session_destroy();
+            header("location:" . WEBROOT);
+            exit;
+            break;
         case 'detail':
-            $classe=findAllClasse();
+            $classe = findAllClasse();
             $detail = [];
-            if(isset($_REQUEST['id'])){
-                $id=intval($_REQUEST['id']);
+            if (isset($_REQUEST['id'])) {
+                $id = intval($_REQUEST['id']);
                 $detail = detailById($id);
+                if ($page == 'delete') {
+                    if (isset($_REQUEST['id'])) {
+                        $id = intval($_REQUEST['id']);
+                        delEtudiantById($id);
+                    }
+                }
             }
             require_once('detail.php');
-        break;
-        case 'ajout' :
-            $classe=findAllClasse();
+            break;
+        case 'ajout':
+            $classe = findAllClasse();
             $etude = findAllEtudiant();
             $errors = [];
-            $verif=true;
-            $veriftel=true;
-            if(isset($_REQUEST['ajouter'])){
+            $verif = true;
+            $veriftel = true;
+            if (isset($_REQUEST['ajouter'])) {
                 $lib = trim($_REQUEST['nom']);
                 $pre = trim($_REQUEST['pre']);
                 $clas = trim($_REQUEST['cla']);
                 $mail = trim($_REQUEST['mai']);
                 $tel = trim($_REQUEST['tel']);
                 $ad = trim($_REQUEST['adr']);
-                $verif = verificationUnicite($mail,"email");
-                $veriftel = verificationUnicite($tel,"telephone");
-                if(empty($lib)){
-                    $errors['nom']="Champ obligatoire";
+                $verif = verificationUnicite($mail, "email");
+                $veriftel = verificationUnicite($tel, "telephone");
+                if (empty($lib)) {
+                    $errors['nom'] = "Champ obligatoire";
                 }
-                if(empty($pre)){
-                    $errors['pre']="Champ obligatoire";
+                if (empty($pre)) {
+                    $errors['pre'] = "Champ obligatoire";
                 }
-                if(empty($mail)){
-                    $errors['mai']="Champ obligatoire";
-                }elseif($verif == false){
-                    $errors['mai']="mail déja utiliser";
+                if (empty($mail)) {
+                    $errors['mai'] = "Champ obligatoire";
+                } elseif ($verif == false) {
+                    $errors['mai'] = "mail déja utiliser";
                 }
-                if(empty($tel)){
-                    $errors['tel']="Champ obligatoire";
-                }elseif($veriftel == false){
-                    $errors['tel']="Numéro de telephone déja attribuer";
+                if (empty($tel)) {
+                    $errors['tel'] = "Champ obligatoire";
+                } elseif ($veriftel == false) {
+                    $errors['tel'] = "Numéro de telephone déja attribuer";
                 }
-                if(empty($ad)){
-                    $errors['adr']="Champ obligatoire";
+                if (empty($ad)) {
+                    $errors['adr'] = "Champ obligatoire";
                 }
-                if(empty($errors)){
-                    $newEtude=[
-                        'id'=> nouveauId($etude),
-                        'nom'=>$lib,
-                        'prenom'=>$pre,
-                        'idClasse'=>(int)$clas,
-                        'email'=>$mail,
-                        'telephone'=>$tel,
-                        'adresse'=>$ad
+                if (empty($errors)) {
+                    $id = nouveauId($etude);
+                    $newEtude = [
+                        'id' => $id,
+                        'matricule' => 'ETU00' . $id,
+                        'nom' => $lib,
+                        'prenom' => $pre,
+                        'idClasse' => (int)$clas,
+                        'email' => $mail,
+                        'telephone' => $tel,
+                        'adresse' => $ad
                     ];
-                    ajouter($newEtude,'etudiant');
-                    header("location:".WEBROOT."?page=liste");
+                    ajouter($newEtude, 'etudiant');
+                    header("location:" . WEBROOT . "?page=liste");
                     exit;
                 }
             }
             require_once('ajoutEtudiant.php');
-        break;
+            break;
         case 'modif':
-            $classe=findAllClasse();
-            $etude=findAllEtudiant();
-            $error1="";
-            $error2="";
-            $error3="";
-            $error4="";
-            $error5="";
-            $error6="";
-            $id=intval($_REQUEST['id']);
-            $charge=detailById($id);
-            if(isset($_REQUEST['modSave'])){
+            $classe = findAllClasse();
+            $etude = findAllEtudiant();
+            // var_dump($etude);
+            // die;
+            $error1 = "";
+            $error2 = "";
+            $error3 = "";
+            $error4 = "";
+            $error5 = "";
+            $error6 = "";
+            $id = intval($_REQUEST['id']);
+            $charge = detailById($id);
+            $mailverif = true;
+            $telverif = true;
+            if (isset($_REQUEST['modSave'])) {
                 $lib = trim($_REQUEST['nom']);
                 $pre = trim($_REQUEST['pre']);
                 $clas = trim($_REQUEST['class']);
                 $mail = trim($_REQUEST['mail']);
+                $mailverif = verificationUnicite($mail, 'email');
                 $tel = trim($_REQUEST['tel']);
+                $telverif = verificationUnicite($tel, 'telephone');
                 $ad = trim($_REQUEST['ad']);
-                $verif=true;
-                if(empty($lib)){
-                    $error1="champ obligatoire";
-                    $verif=false;
+                $verif = true;
+                $etude = findAllEtudiant();
+                if (empty($lib)) {
+                    $error1 = "champ obligatoire";
+                    $verif = false;
                 }
-                if(empty($pre)){
-                    $error2="champ obligatoire";
-                    $verif=false;
+                if (empty($pre)) {
+                    $error2 = "champ obligatoire";
+                    $verif = false;
                 }
-                // if(empty($clas)){
-                //     $error3="champ obligatoire";
-                //     $verif=false;
-                // }
-                if(empty($mail)){
-                    $error5="champ obligatoire";
-                    $verif=true;
+                if (empty($mail)) {
+                    $error5 = "champ obligatoire";
+                    $verif = false;
                 }
-                if(empty($tel)){
-                    $error6="champ obligatoire";
-                    $verif=true;
+                if (empty($tel)) {
+                    $error6 = "champ obligatoire";
+                    $verif = false;
                 }
-                if(empty($ad)){
-                    $error4="champ obligatoire";
-                    $verif=false;
+                foreach ($etude as $e) {
+                    if ($mailverif == false && $e['email'] == $mail && $e['id'] != $id) {
+                        $error5 = "Mail déjà utilisé";
+                        $verif = false;
+                        break;
+                    }
+                    if ($telverif == false && $e['telephone'] == $tel && $e['id'] != $id) {
+                        $error6 = "Téléphone déjà utilisé";
+                        $verif = false;
+                        break;
+                    }
                 }
-                if($verif === true){
-                    $modif=[
-                        'id'=>$_REQUEST['id'],
-                        'nom'=>$_REQUEST['nom'],
-                        'prenom'=>$_REQUEST['pre'],
-                        'idClasse'=>(int)$_REQUEST['class'],
-                        'email'=>$_REQUEST['mail'],
-                        'telephone'=>$_REQUEST['tel'],
-                        'adresse'=>$_REQUEST['ad']
+                if (empty($ad)) {
+                    $error4 = "champ obligatoire";
+                    $verif = false;
+                }
+                if ($verif === true) {
+                    $modif = [
+                        'id' => $_REQUEST['id'],
+                        'matricule' => 'ETU00' . $_REQUEST['id'],
+                        'nom' => $_REQUEST['nom'],
+                        'prenom' => $_REQUEST['pre'],
+                        'idClasse' => (int)$_REQUEST['class'],
+                        'email' => $_REQUEST['mail'],
+                        'telephone' => $_REQUEST['tel'],
+                        'adresse' => $_REQUEST['ad']
                     ];
-                    dd($modif);
+                    // dd($modif);
                     modifierById($modif);
-                    header("Location:".WEBROOT."?page=liste");
+                    header("Location:" . WEBROOT . "?page=liste");
                     exit;
                 }
             }
@@ -166,121 +195,173 @@ if (isset($_REQUEST['page'])) {
             //     $detail=detailById($id);
             // }
             require_once('modif.php');
-        break;
+            break;
         case 'classe':
             $niveau = findAllNiveau();
             $filiere = findAllFilliere();
             $classes = findAllClasse();
-            if(isset($_REQUEST['fil'])){
+            if (isset($_REQUEST['fil'])) {
                 $lib = trim($_REQUEST['fili']);
-                $classes = filterByFiliere($filiere,$lib,$classes);
-            }elseif(isset($_REQUEST['niv'])){
+                $classes = filterByFiliere($filiere, $lib, $classes);
+            } elseif (isset($_REQUEST['niv'])) {
                 $libe = trim($_REQUEST['nive']);
-                $classes = filterByNiveau($niveau,$libe,$classes);
+                $classes = filterByNiveau($niveau, $libe, $classes);
             }
+            if(isset($_REQUEST['id'])){
+                $id=intval($_REQUEST['id']);
+                delClasseWithEtudiant($id);
+            }
+            $classes = findAllClasse();
             require_once('classe.php');
-        break;
+            break;
         case 'ajClasse':
             $niveau = findAllNiveau();
             $filiere = findAllFilliere();
-            $classe =findAllClasse();
-            $errors=[];
-            $verif=true;
-            $verifcode=true;
-            if(isset($_REQUEST['ajClasses'])){
+            $classe = findAllClasse();
+            $errors = [];
+            $verif = true;
+            $verifcode = true;
+            if (isset($_REQUEST['ajClasses'])) {
                 $lib = trim($_REQUEST['nom']);
-                $verif = verificationUniciteOnClasse($lib,'libelle');
+                $verif = verificationUniciteOnClasse($lib, 'libelle');
                 $code = trim($_REQUEST['cod']);
-                $verifcode = verificationUniciteOnClasse($code,'code');
-                if(empty($lib)){
+                $verifcode = verificationUniciteOnClasse($code, 'code');
+                if (empty($lib)) {
                     $errors['nom'] = 'Champ obligatoire';
-                }elseif($verif == false){
+                } elseif ($verif == false) {
                     $errors['nom'] = 'Cette classe existe déjà';
                 }
-                if(empty($code)){
+                if (empty($code)) {
                     $errors['code'] = 'Champ obligatoire';
-                }elseif($verifcode == false){
+                } elseif ($verifcode == false) {
                     $errors['code'] = 'Ce code existe déja';
                 }
-                if(empty($errors)){
-                    $newClasse=[
+                if (empty($errors)) {
+                    $newClasse = [
                         "id" => nouveauId($classe),
                         "libelle" => $lib,
                         "code" => $code,
                         "idFiliere" => $_REQUEST['fil'],
                         "idNiveau" => $_REQUEST['niv']
                     ];
-                    ajouter($newClasse,'classe');
-                    header("location:".WEBROOT."?page=classe");
+                    ajouter($newClasse, 'classe');
+                    header("location:" . WEBROOT . "?page=classe");
                     exit;
                 }
             }
             require_once('ajoutClasse.php');
-        break;
+            break;
         case 'filiere':
-            $filiere=findAllFilliere();
-            $errors=[];
-            $verif=true;
-            if(isset($_REQUEST['ajfil'])){
-                $lib=trim($_REQUEST['nom']);
+            $filiere = findAllFilliere();
+            $errors = [];
+            $verif = true;
+            if (isset($_REQUEST['ajfil'])) {
+                $lib = trim($_REQUEST['nom']);
                 // $lib=lcfirst($lib);
-                $verif=verificationUniciteOnFiliere($lib,'libelle');
-                $desc=trim($_REQUEST['desc']);
-                if(empty($lib)){
-                    $errors['lib'] ="Champ obligatoire";
-                }elseif($verif == false){
-                    $errors['lib'] ='Ce nom existe déja';
+                $verif = verificationUniciteOnFiliere($lib, 'libelle');
+                // $desc = trim($_REQUEST['desc']);
+                if (empty($lib)) {
+                    $errors['lib'] = "Champ obligatoire";
+                } elseif ($verif == false) {
+                    $errors['lib'] = 'Ce nom existe déja';
                 }
-                if(empty($desc)){
-                    $desc='Aucun description pour ce filiere';
-                }
-                if(empty($errors)){
+                // if (empty($desc)) {
+                //     $desc = 'Aucun description pour ce filiere';
+                // }
+                if (empty($errors)) {
                     $newFiliere = [
                         "id" => nouveauId($filiere),
                         "libelle" => $lib,
-                        "description" => $desc
+                        // "description" => $desc
                     ];
-                    ajouter($newFiliere,'filiere');
-                    header("location:".WEBROOT."?page=filiere");
+                    ajouter($newFiliere, 'filiere');
+                    header("location:" . WEBROOT . "?page=filiere");
                     exit;
                 }
             }
             require_once('filiere.php');
-        break;
+            break;
         case 'niveau':
-            $niveau=findAllNiveau();
-            $errors=[];
-            $verif=true;
-            if(isset($_REQUEST['ajniv'])){
-                $lib=trim($_REQUEST['nom']);
+            $niveau = findAllNiveau();
+            $errors = [];
+            $verif = true;
+            if (isset($_REQUEST['ajniv'])) {
+                $lib = trim($_REQUEST['nom']);
                 // $lib=lcfirst($lib);
-                $verif=verificationUniciteOnNiveau($lib,'libelle');
-                $desc=trim($_REQUEST['desc']);
-                if(empty($lib)){
-                    $errors['lib'] ="Champ obligatoire";
-                }elseif($verif == false){
-                    $errors['lib'] ='Ce nom existe déja';
+                $verif = verificationUniciteOnNiveau($lib, 'libelle');
+                // $desc = trim($_REQUEST['desc']);
+                if (empty($lib)) {
+                    $errors['lib'] = "Champ obligatoire";
+                } elseif ($verif == false) {
+                    $errors['lib'] = 'Ce nom existe déja';
                 }
-                if(empty($desc)){
-                    $desc='Aucun description pour ce filiere';
-                }
-                if(empty($errors)){
+                // if (empty($desc)) {
+                //     $desc = 'Aucun description pour ce filiere';
+                // }
+                if (empty($errors)) {
                     $newNiveau = [
                         "id" => nouveauId($niveau),
                         "libelle" => $lib,
-                        "description" => $desc
+                        // "description" => $desc
                     ];
-                    ajouter($newNiveau,'niveau');
-                    header("location:".WEBROOT."?page=niveau");
+                    ajouter($newNiveau, 'niveau');
+                    header("location:" . WEBROOT . "?page=niveau");
                     exit;
                 }
             }
             require_once('niveau.php');
-        break;
+            break;
+        case 'modifClasse':
+            $niveau = findAllNiveau();
+            $filiere = findAllFilliere();
+            $classe = findAllClasse();
+            $id=intval($_REQUEST['id']);
+            $charge = detailClasseById($id);
+            $errors = [];
+            $verif = true;
+            $verifcode = true;
+            if (isset($_REQUEST['modClasse'])) {
+                $lib = trim($_REQUEST['nom']);
+                $verif = verificationUniciteOnClasse($lib,'libelle');
+                $code = trim($_REQUEST['cod']);
+                $verifcode = verificationUniciteOnClasse($code,'code');
+                $fili=trim($_REQUEST['fil']);
+                $nive=trim($_REQUEST['niv']);
+                if (empty($lib)) {
+                    $errors['nom'] = 'Champ obligatoire';
+                }
+                if (empty($code)) {
+                    $errors['code'] = 'Champ obligatoire';
+                }
+                foreach($classe as $clas){
+                    if ($verifcode == false && $clas['code']==$code && $clas['id']!= $id) {
+                    $errors['code'] = 'Ce code existe déja';
+                    break;
+                    }
+                    if ($verif == false && $clas['libelle']==$lib && $clas['id']!=$id) {
+                    $errors['nom'] = 'Cette classe existe déjà';
+                    break;
+                }
+                }
+                if (empty($errors)) {
+                    $modifClasse = [
+                        "id"=> $_REQUEST['id'],
+                        "libelle" => $lib,
+                        "code" => $code,
+                        "idFiliere" => $fili,
+                        "idNiveau" => $nive
+                    ];
+                    modifierClasseById($modifClasse);
+                    header("location:" . WEBROOT . "?page=classe");
+                    exit;
+                }
+            }
+            require_once('modifClasse.php');
+            break;
         default:
-        break;
+            break;
     }
-}else{
+} else {
     if (isset($_SESSION["userConnect"])) {
         header("location:" . WEBROOT . "?page=dashboard");
         exit;

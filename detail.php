@@ -11,15 +11,19 @@
                     <div class="detOther">
                         <h2>Information de l'etudiant</h2>
                         <div class="infdet">
+                            <div>Matricule :<?= $detail['matricule'] ?></div>
                             <div>Nom :<?= $detail['nom'] ?></div>
                             <div>Prenom :<?= $detail['prenom'] ?></div>
                             <div>Classe :<?= getLibelleByIdElement($classe,$detail['idClasse']) ?></div>
+                            <div>Filière :<?= getlibelleFilliereByClasse($classe,$detail['idClasse']) ?></div>
+                            <div>Niveau :<?= getlibelleNiveauByClasse($classe,$detail['idClasse']) ?></div>
                             <div>Mail :<?= $detail['email'] ?></div>
                             <div>Telephone :<?= $detail['telephone'] ?></div>
                             <div>Adresse :<?= $detail['adresse'] ?></div>    
                         </div>
                         <div class="detBouton">
                             <button><a href="<?=WEBROOT?>?page=modif&id=<?=$id?>">Modifier</a></button>
+                            <button><a href="<?=WEBROOT?>?page=delete&id=<?=$id?>">Supprimer</a></button>
                         </div>
                     </div>
                 </div>

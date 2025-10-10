@@ -8,10 +8,10 @@
                     <input type="text" name="nom" id="" placeholder="Fillière" value=<?= $lib ?? "" ?>>
                     <p><?= $errors['lib'] ?? "" ?></p>
                 </div>
-                <div class="filab2">
+                <!-- <div class="filab2">
                     <label for="">Description :</label>
                     <input type="text" name="desc" id="" placeholder="Description">
-                </div>
+                </div> -->
             </div>
             <button type="submit" class="class-bouton" name="ajfil" value="">Enregistrer</button>
         </form>
@@ -20,7 +20,7 @@
         <thead>
             <tr>
                 <th>Nom</th>
-                <th>Descritpion</th>
+                <th>Classe rattaché avec filiere</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +28,11 @@
             <?php foreach ($filiere as $filier) : ?>
                 <tr>
                     <td><?= $filier['libelle'] ?></td>
-                    <td><?= $filier['description'] ?></td>
+                    <td>
+                        <a href="">
+                            <button>Voir liste</button>
+                        </a>
+                    </td>
                 </tr>
             <?php endforeach ?>
         </tbody>
