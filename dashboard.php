@@ -7,7 +7,7 @@
             <div class="titre">
                 <div class="ti">
                     <h1>DASHBOARD</h1>
-                    <p>Realiser par seydina ababacar ben thiam etudiant en L1</p>
+                    <!-- <p>Realiser par seydina ababacar ben thiam etudiant en L1</p> -->
                 </div>
                 <div class="bout">
                     <button class="add"><a href="<?=WEBROOT?>?page=ajout" style="text-decoration: none;color:white;">+ Add Etudiant</a></button>
