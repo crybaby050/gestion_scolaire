@@ -2,7 +2,7 @@
             <div class="liste">
                 <div class="logo">
                     <div class="rond"></div>
-                    <h2>Logo</h2>
+                    <h2>E 221</h2>
                 </div>
                 <div class="lis">
                     <ul>
