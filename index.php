@@ -25,7 +25,7 @@ if (isset($_REQUEST['page'])) {
         break;
         case 'liste':
             // $test = findAllEtudiant();
-            $niveau = findAllNiveau();
+            // $niveau = findAllNiveau();
             $classe = findAllClasse();
             $error = '';
             if (isset($_REQUEST['id'])) {
@@ -37,7 +37,7 @@ if (isset($_REQUEST['page'])) {
                 $val = trim($_REQUEST['niv']);
                 $etude = filteredByClasse($val, $etude, $classe);
                 require_once('liste.php');
-            }
+            } 
             // $classe=findAllClasse();
             require_once('liste.php');
         break;
